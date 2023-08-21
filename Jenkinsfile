@@ -1,23 +1,50 @@
 // Declerative way
 pipeline {
-    agent any 
+    agent any
+    parameters {
+        choice (
+            name: 'action',
+            choices: 'apply\ndestroy'
+            description: "Apply and destroy app1 infrastructure"
+        )
+    } 
     stages {
         stage ('init') {
+            when {
+                expression {
+                    params.action == 'apply'
+                }
+            }
             steps {
                 sh "terraform init" // refresh //plan //apply //destroy 
             }
         }
-        stage ('Planning') {
+        stage ('Plan') {
+            when {
+                expression {
+                    params.action == 'apply'
+                }
+            }
             steps {
                 sh "terraform plan"
             }
         }
         stage ('apply') {
+            when {
+                expression {
+                    params.action == 'apply'
+                }
+            }
             steps {
                 sh "terraform apply --auto-approve"
             }
         }
         stage ('destroy') {
+            when {
+                expression {
+                    params.action == 'ndestroy'
+                }
+            }
             steps {
                 sh "terraform destroy --auto-approve"
             }
