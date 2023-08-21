@@ -4,7 +4,7 @@ pipeline {
     parameters {
         choice (
             name: 'action',
-            choices: 'apply\ndestroy'
+            choices: 'apply\ndestroy',
             description: "Apply and destroy app1 infrastructure"
         )
     } 
