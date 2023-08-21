@@ -7,5 +7,10 @@ pipeline {
                 sh "terraform init" // refresh //plan //apply //destroy 
             }
         }
+        stage ('Planning') {
+            steps {
+                sh "terraform plan"
+            }
+        }
     }
 }
